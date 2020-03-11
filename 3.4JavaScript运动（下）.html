@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>3.4JavaScript运动(下)</title>
+    <style>
+
+/* ①---------② */
+        /* div {
+            position: absolute;
+            left:0px;
+            top: 0px;
+            width: 100px;
+            height: 100px;
+            background: orange;
+            border-radius: 50%;
+        }
+    
+        span {
+            position: absolute;
+            left: 300px;
+            top: 0px;
+            width: 1px;
+            height: 100px;
+            background: #ccc;
+        } */
+    
+
+
+/* ③ */
+        /* *  {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+        ul {
+            position: relative;
+            width: 600px;
+            height: 80px;
+            margin: 100px auto 0;
+        } */
+
+        /* xx.cc不可以打空格↓ */
+
+        /* ul li.nav {
+            width: 148px;
+            height: 78px;
+            border: 1px solid #000;
+            color: #f00;
+            text-align: center;
+            line-height: 78px;
+            float: left;
+        }
+        ul li.bg {
+            /* 需要一个定位 */
+            /* position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 150px;
+            height: 80px;
+            background: #f40;
+            opacity: 0.5;
+        } */ 
+
+
+
+
+
+/* ④多方向运动——非单一方向 */
+        div {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            width: 100px;
+            height: 100px;
+            background: orange;
+            border-radius: 50%;
+        }
+        span {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: #000;
+
+        }
+
+
+
+    </style> 
+</head> 
+<body>
+
+<!-- 
+    ①---②
+    <div></div>
+    <span></span> -->
+
+
+<!-- ③
+    <ul>
+        <li class="nav">ES6</li>
+        <li class="nav">Webpack</li>
+        <li class="nav">Vue</li>
+        <li class="nav">Node</li>
+
+        让bg成为这个导航栏的一个背景 -->
+        <!-- <li class="bg"></li>
+    </ul> -->
+
+
+
+
+
+<!-- ④多方向运动——非单一方向 -->
+    <div></div>
+
+
+
+
+
+    <script>
+
+
+
+
+// ①简单的加减速匀速运动
+        // var oDiv = document.getElementsByTagName('div')[0];
+        // var timer = null;
+        // oDiv.onclick = function () {
+        //     startMove(this);
+        // }
+        // function startMove(obj) {
+        //     clearInterval(obj.timer);
+        //     var iSpeed = 0;
+        //     var a = 3;//减速负数就行了
+
+        //     //Ve = V0 + at;匀加速公式
+        //     obj.timer = setInterval(function () {
+        //         iSpeed = iSpeed + a;
+        //         obj.style.left = obj.offsetLeft + iSpeed + 'px';
+        //     }, 30)
+        // }
+     
+
+
+
+
+
+//②往复的弹性运动
+        // var oDiv = document.getElementsByTagName('div')[0];
+        // var timer = null;
+        // oDiv.onclick = function () {
+        //     startMove(this);
+        // }
+
+
+    //②.1  ****** 需要摆脱其软弱无力的特点——普通的匀加速回弹运动******
+        // function startMove(obj) {
+        //     clearInterval(obj.timer);
+        //     var iSpeed = 0;
+        //     var a = 3;
+        //     obj.timer = setInterval(function () {
+        //         if (obj.offsetLeft < 300) {
+        //             iSpeed = iSpeed + a;
+        //         }else {
+        //             iSpeed = iSpeed - a;
+        //         }
+        //         obj.style.left = obj.offsetLeft + iSpeed + 'px';
+        //     }, 30)
+        // }
+    
+
+    //②.2  ******改进↓（*******加速度变小的回弹加速运动*******）↓****
+    // function startMove(obj) {
+    //         clearInterval(obj.timer);
+    //         var iSpeed = 0;
+    //         var a ;
+    //         obj.timer = setInterval(function () {
+    //             a = (300 - obj.offsetLeft) / 15;
+    //             iSpeed = iSpeed + a;
+    //             obj.style.left = obj.offsetLeft + iSpeed + 'px';
+    //         }, 30)
+    //     }
+    
+
+
+
+
+
+//②.3  ************增加摩檫力且,能停***********
+    // function startMove(obj) {
+    //         clearInterval(obj.timer);
+    //         var iSpeed = 40, a, u = 0.8;//摩擦系数0.8
+    //         obj.timer = setInterval(function () {
+    //             a = (300 - obj.offsetLeft) / 8;
+    //             iSpeed = iSpeed + a;
+    //             iSpeed = iSpeed * u;
+    //             //判断的条件：
+    //                 //console.log(iSpeed); -1 1
+    //                 //
+    //             if (Math.abs(iSpeed) < 1 && Math.abs(300-obj.offsetLeft) < 1) {
+    //                 //console.log('over');
+    //                 clearInterval(obj.timer);
+    //             }else {
+    //                 obj.style.left = obj.offsetLeft + iSpeed + 'px';
+    //             }
+                
+    //         }, 30)
+    //     }
+
+
+
+
+
+
+
+//③************************实例1：导航栏**********************
+        // 把它变成一个真正的数组
+    // var oLiArray = Array.prototype.slice.call(document.getElementsByClassName('nav'),0);
+    // var oBg = document.getElementsByClassName('bg')[0]; 
+    // oLiArray.forEach(function (ele, index) {
+    //     ele.onmouseenter = function () {
+    //         var newLeft = this.offsetLeft;
+    //         startMove(oBg, newLeft);
+    //     }
+    // })
+
+
+    // function startMove(obj, target) {
+    //         clearInterval(obj.timer);
+    //         var iSpeed = 40, a, u = 0.8;//摩擦系数0.8
+    //         obj.timer = setInterval(function () {
+    //             a = (target - obj.offsetLeft) / 8;
+    //             iSpeed = iSpeed + a;
+    //             iSpeed = iSpeed * u;
+    //             //如果怕侧开一小点像素，就<=1   加个等于就可以了。
+    //             if (Math.abs(iSpeed) <= 1 && Math.abs(target-obj.offsetLeft) <= 1) {
+    //                 //console.log('over');
+    //                 clearInterval(obj.timer);
+    //             }else {
+    //                 obj.style.left = obj.offsetLeft + iSpeed + 'px';
+    //             }
+                
+    //         }, 30)
+    //     }
+
+
+
+
+
+
+
+// ④*************************多方向运动（非单一方向的运动）&碰撞检测*******************
+        // var oDiv = document.getElementsByTagName('div')[0];
+        // oDiv.onclick = function () {
+        //     startMove(this);
+        // }
+        // function startMove(obj) {
+        //     clearInterval(obj.timer);
+        //     var iSpeedX = 6;
+        //     var iSpeedY = 8;
+        //     obj.timer = setInterval(function() {
+        //         var newLeft = obj.offsetLeft + iSpeedX;
+        //         var newTop = obj.offsetTop + iSpeedY;
+        //         //碰撞检测——纵向的 碰撞检测
+        //         if(newTop >= document.documentElement.clientHeight - obj.offsetHeight){
+        //              iSpeedY *=  -1;
+        //              //为了避免出现滚动条↓(临界值)
+        //             newTop = document.documentElement.clientHeight - obj.offsetHeight;
+        //         }
+        //         if(newTop <= 0) {
+        //             iSpeedY *= -1;
+        //         }
+        //         //横向的碰撞检测
+        //         if (newLeft >= document.documentElement.clientWidth - obj.offsetWidth){
+        //             iSpeedX *= -1;
+        //             newLeft = ocument.documentElement.clientWidth - obj.offsetWidth;
+        //         }
+        //         if(newLeft <= 0) {
+        //             iSpeedX *= -1;
+        //         }
+        //         obj.style.left = newLeft + 'px';
+        //         obj.style.top = newTop + 'px';
+        //     }, 30);
+
+        // }
+
+
+
+// ⑤******************************模拟重力场*******************
+
+        // var oDiv = document.getElementsByTagName('div')[0];
+        // oDiv.onclick = function () {
+        //     startMove(this);
+        // }
+        // function startMove(obj) {
+        //     clearInterval(obj.timer);
+        //     var iSpeedX = 6;
+        //     var iSpeedY = 8;
+        //     var g = 6;
+        //     obj.timer = setInterval(function() {
+
+        //         iSpeedY += g;
+        //         var newLeft = obj.offsetLeft + iSpeedX;
+        //         var newTop = obj.offsetTop + iSpeedY;
+        //         //碰撞检测——纵向的 碰撞检测
+        //         if(newTop >= document.documentElement.clientHeight - obj.offsetHeight){
+        //              iSpeedY *=  -1;
+        //              iSpeedY *= 0.8;//(碰到临界点的时候速度减小)
+        //              iSpeedX *= 0.8;
+        //              //为了避免出现滚动条↓(临界值)
+        //             newTop = document.documentElement.clientHeight - obj.offsetHeight;
+        //         }
+        //         if(newTop <= 0) {
+        //             iSpeedY *= -1;
+        //             iSpeedY *= 0.8;//(碰到临界点的时候速度减小)
+        //             iSpeedX *= 0.8;
+        //             //防止要越过边界
+        //             newTop = 0;
+        //         }
+        //         //横向的碰撞检测
+        //         if (newLeft >= document.documentElement.clientWidth - obj.offsetWidth){
+        //             iSpeedX *= -1;
+        //             iSpeedY *= 0.8;//(碰到临界点的时候速度减小)
+        //             iSpeedX *= 0.8;
+        //             newLeft = ocument.documentElement.clientWidth - obj.offsetWidth;
+        //         }
+        //         if(newLeft <= 0) {
+        //             iSpeedX *= -1;
+        //             iSpeedY *= 0.8;//(碰到临界点的时候速度减小)
+        //             iSpeedX *= 0.8;
+        //             newLeft = 0;
+        //         }
+        //         obj.style.left = newLeft + 'px';
+        //         obj.style.top = newTop + 'px';
+        //     }, 30); 
+
+        // }
+
+
+
+
+
+
+
+
+// **************************⑥重力场+拖拽效果*************************
+
+            //6-1 线条分析抛出去曲线
+        // var oDiv = document.getElementsByTagName('div')[0];
+
+        // oDiv.onmousedown = function(e) {
+        //     var event = e || window.event;
+        //     var disX = e.clientX - this.offsetLeft;
+        //     var disY = e.clientY - this.offsetTop;
+        //     var that = this;
+        //     document.onmousemove = function(e){
+        //         var newLeft = e.clientX - disX;
+        //         var newTop = e.clientY - disY;
+
+        //     //展示span线条 来分析向某一个方向抛出的速度分析
+        //         var oSpan = document.createElement('span');
+        //         oSpan.style.left = newLeft + 'px';
+        //         oSpan.style.top = newTop + 'px';
+        //         document.body.appendChild(oSpan);
+
+        //         that.style.left = newLeft + 'px';
+        //         that.style.top = newTop + 'px';
+        //     }
+        //     document.onmouseup = function () {
+        //         document.onmousemove = null;
+        //         document.onmouseup = null; 
+        //     }
+        // }
+        // oDiv.onclick = function () {
+        //     startMove(this);
+        // }
+        // function startMove(obj) {
+        //     clearInterval(obj.timer);
+        //     var iSpeedX = 6;
+        //     var iSpeedY = 8;
+        //     var g = 6;
+        //     obj.timer = setInterval(function() {
+
+        //         iSpeedY += g;
+        //         var newLeft = obj.offsetLeft + iSpeedX;
+        //         var newTop = obj.offsetTop + iSpeedY;
+        //         //碰撞检测——纵向的 碰撞检测
+        //         if(newTop >= document.documentElement.clientHeight - obj.offsetHeight){
+        //              iSpeedY *=  -1;
+        //              iSpeedY *= 0.8;//(碰到临界点的时候速度减小)
+        //              iSpeedX *= 0.8;
+        //              //为了避免出现滚动条↓(临界值)
+        //             newTop = document.documentElement.clientHeight - obj.offsetHeight;
+        //         }
+        //         if(newTop <= 0) {
+        //             iSpeedY *= -1;
+        //             iSpeedY *= 0.8;//(碰到临界点的时候速度减小)
+        //             iSpeedX *= 0.8;
+        //             //防止要越过边界
+        //             newTop = 0;
+        //         }
+        //         //横向的碰撞检测
+        //         if (newLeft >= document.documentElement.clientWidth - obj.offsetWidth){
+        //             iSpeedX *= -1;
+        //             iSpeedY *= 0.8;//(碰到临界点的时候速度减小)
+        //             iSpeedX *= 0.8;
+        //             newLeft = ocument.documentElement.clientWidth - obj.offsetWidth;
+        //         }
+        //         if(newLeft <= 0) {
+        //             iSpeedX *= -1;
+        //             iSpeedY *= 0.8;//(碰到临界点的时候速度减小)
+        //             iSpeedX *= 0.8;
+        //             newLeft = 0;
+        //         }
+        //         obj.style.left = newLeft + 'px';
+        //         obj.style.top = newTop + 'px';
+        //     }, 30); 
+
+        // }
+
+
+
+
+            //6-2运动上一个点与下一个点的关系来写：↓   
+        var oDiv = document.getElementsByTagName('div')[0];
+        //上一个的位置上点
+        var lastX = oDiv.offsetLeft;
+        var lastY = oDiv.offsetTop;
+
+        oDiv.onmousedown = function(e) {
+            var event = e || window.event;
+            var disX = e.clientX - this.offsetLeft;
+            var disY = e.clientY - this.offsetTop;
+            var that = this;
+
+            var iSpeedX = 0;
+            var iSpeedY = 0;
+
+            document.onmousemove = function(e){
+
+
+                //**********要避免在一次点击的时候，上一个还没完，要及时停止上一个
+                clearInterval(this.timer);
+
+
+                var newLeft = e.clientX - disX;
+                var newTop = e.clientY - disY;
+
+                iSpeedX = newLeft - lastX;
+                iSpeedY = newTop - lastY;
+
+                //此时需要去更新上一次的点的坐标
+                lastX = newLeft;
+                lastY = newTop;
+
+                that.style.left = newLeft + 'px';
+                that.style.top = newTop + 'px';
+            }
+            document.onmouseup = function () {
+                document.onmousemove = null;
+                document.onmouseup = null; 
+                startMove(that, iSpeedX, iSpeedY);
+            }
+        }
+
+        function startMove(obj, iSpeedX, iSpeedY) {
+            clearInterval(obj.timer);
+            var g = 6;
+            obj.timer = setInterval(function() {
+
+                iSpeedY += g;
+                var newLeft = obj.offsetLeft + iSpeedX;
+                var newTop = obj.offsetTop + iSpeedY;
+                //碰撞检测——纵向的 碰撞检测
+                if(newTop >= document.documentElement.clientHeight - obj.offsetHeight){
+                     iSpeedY *=  -1;
+                     iSpeedY *= 0.8;//(碰到临界点的时候速度减小)
+                     iSpeedX *= 0.8;
+                     //为了避免出现滚动条↓(临界值)
+                    newTop = document.documentElement.clientHeight - obj.offsetHeight;
+                }
+                if(newTop <= 0) {
+                    iSpeedY *= -1;
+                    iSpeedY *= 0.8;//(碰到临界点的时候速度减小)
+                    iSpeedX *= 0.8;
+                    //防止要越过边界
+                    newTop = 0;
+                }
+                //横向的碰撞检测
+                if (newLeft >= document.documentElement.clientWidth - obj.offsetWidth){
+                    iSpeedX *= -1;
+                    iSpeedY *= 0.8;//(碰到临界点的时候速度减小)
+                    iSpeedX *= 0.8;
+                    newLeft = document.documentElement.clientWidth - obj.offsetWidth;
+                }
+                if(newLeft <= 0) {
+                    iSpeedX *= -1;
+                    iSpeedY *= 0.8;//(碰到临界点的时候速度减小)
+                    iSpeedX *= 0.8;
+                    newLeft = 0;
+                }
+                //真正停止的状态：既停留在底边，速度又都为0
+                if (Math.abs(iSpeedX) < 1) {
+                    iSpeedX = 0;
+                }
+                if (Math.abs(iSpeedY) < 1) {
+                    iSpeedX = 0;
+                }      
+                if(iSpeedX == 0 && iSpeedY == 0 && newTop == document.documentElement.clientHeight - obj.offsetHeight){
+                    clearInterval(obj.timer);
+                    console.log('over');
+                }
+                obj.style.left = newLeft + 'px';
+                obj.style.top = newTop + 'px';
+            }, 30); 
+
+        }
+
+
+
+
+
+    </script>
+</body>
+</html>

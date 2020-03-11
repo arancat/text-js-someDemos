@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width" >
+    <meta http-equiv="X-UA-Compatible" content="initial">
+    <title>Doncument</title>
+    <link rel="stylesheet" href="./index.css">
+    <!-- <style>
+        .wrapper {
+            position: absolute;
+            top: 100px;
+            left: 100px;
+            border: 1px solid #000;
+            width: 300px;
+            height:300px;
+        }
+        #demo {
+            position: absolute;
+            top: 100px;
+            left: 100px;
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+    </style> -->
+</head>
+<body>
+    <di class="wrapper">
+            <div id="demo1">
+
+            </div>
+            <div id="demo2">
+
+            </div>
+            <div id="demo3">
+
+            </div>
+            <div id="demo4">
+                
+            </div>
+    </di>
+
+    <script> 
+    //求文档相对于父级的距离
+        var oDemo  = document.getElementById('demo');
+        function getElementPosition(ele) {
+            //重要的判断条件↓
+            if(ele.offsetParent.nodeName == 'BODY') {
+                return {
+                    l: ele.offsetLeft,
+                    t: ele.offsetTop
+                }
+            }else {
+                return {
+                    l: ele.offsetLeft + getElementPosition(ele.offsetParent.l),
+                    t: ele.offsetTop + getElementPosition(ele.offsetParent.t)
+                }
+            }
+        }
+
+        console.log(getElementPosition(oDemo).l);
+        //写代码的代码写作规范：↓
+        //1构造函数大写开头 且  新的函数被构造应该写new
+        //2缩进有利于  包含-  不用展开看
+        //3响应式布局方式（如bootstrap）
+        //4类名可以用-链接   譬如 ：wrapper-logo
+        //5css中，position这种比较重要的（影响文档流）都会写在前面，而width这样的属性会写在下面
+        //  5-1.文档流（position float display clear）
+        //  5-2.盒子属性（width margin padding border）
+        //  5-3.排版
+        //  5-4.装饰属性
+        //属性的顺序来写：譬如border 上右下左 top right bottom left
+
+
+                    /* 重要的文档流啊之类的属性往前写 */
+            /* 加前缀的都用配置工具就可以了 */
+            /* 加载的时候有一个重排重绘的过程；重排更复杂，重绘只改变一些 */
+
+            /* 1.文档流（position  float display clear)
+            2.盒子属性 （width margin 等）
+            3.排版
+            4.装饰属性（颜色等） */
+    </script>
+</body>
+</html>

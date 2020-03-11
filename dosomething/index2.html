@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .demo{
+            width: 100px;
+            height: 100px;
+            background: red;
+        }
+    
+    </style>
+</head>
+<body>
+    <!-- //开关的方法 -->
+    <button id="btn">btn</button>
+    <div class="demo"></div>
+    <script>
+        var oBtn = document.getElementById('btn');
+        var oDemo = document.getElementsByClassName('demo')[0];
+
+        //法一：这个btn只有是id的时候才可以直接用，效果一样，但是不建议这样用，正在被遗弃
+        // btn.onclick  = function () {
+        //     oDemo.style.height = '50px' ;
+        // }
+
+        //法二
+        // oBtn.onclick  = function () {
+        //     oDemo.style.height = '50px' ;
+        // }
+    
+        //实现同一功能的锁功能，加的是标识
+        var flag = 1;//锁flag  也可以是 true or  false
+        oBtn.onclick = function () {
+            if(flag == 1) {
+                flag = 0;
+                oDemo.style.height = '50px';
+            }else {
+                flag = 1;
+                oDemo.style.height = '100px';
+            }
+        }
+    
+    </script>
+</body>
+</html>

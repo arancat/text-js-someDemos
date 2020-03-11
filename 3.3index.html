@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>3-3javascript运动（上）</title>
+    <style>
+
+/* ①②匀速运动和缓冲运动 */
+
+        /* div {
+            position: absolute;
+            left: 0px;
+            /* 600px反向运用 */
+            /* top: 0px;
+            width: 100px;
+            height: 100px;
+            background: orange;
+        }
+        span {
+            position: absolute;
+            left: 300px;
+            top: 0px; 
+            width: 1px;
+            height: 100px;
+            background: #000000;
+        }
+        button {
+            margin-top: 150px;
+        } */
+
+
+
+
+
+/* //③ */
+        /* .wrapper {
+            position: absolute;
+            left: -400px;
+            top: 300px;
+            width: 400px;
+            height: 80px;
+            background: yellow;
+        }
+        .wrapper .show {
+            position: absolute;
+            right: -40px;
+            top: 0px;
+            width: 40px;
+            height: 80px;
+            background: orange;
+        } */
+
+
+
+
+
+
+
+
+/* ④获取样式 */
+        /* div {
+            width: 100px;
+            height: 100px;
+            opacity: 1;
+            background: red;
+        } */
+
+
+
+
+/* ⑤四个div _给所有的div注册一个事件*/
+        /* div {
+            width: 100px;
+            height: 100px;
+            background: red;
+            margin-bottom: 50px;
+            opacity: 1;
+            border: 1px solid #000000;
+        } */
+
+
+
+
+
+/* ⑥链式操作 */
+        div {
+            width: 100px;
+            height: 100px;
+            background: red;
+            position: absolute;
+            left: 0px;
+            opacity: 1;
+        }
+
+        .top {
+            top: 100px;
+        }
+
+        .bottom {
+            top: 300px;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <!-- ①②匀速运动和缓冲运动 -->
+
+    <!-- <div></div>
+    <button id='oBtn'>run</button> ——但是不希望在工程实用的时候大量的使用div,这里只是举例使用-->
+    <!-- <span></span> --> 
+
+
+
+
+
+
+
+    <!-- ③弹出缩回运动 -->
+    <!-- <div class="wrapper">
+        <div class="show"></div>
+    </div> -->
+
+
+
+
+<!-- ④获取样式并且改变样式
+    <div></div> -->
+
+
+
+
+
+
+
+
+<!-- ⑤四个div -->
+    <!-- <div></div>
+    <div></div>
+    <div></div>
+    <div></div> -->
+
+
+
+
+<!-- ⑥链式操作 -->
+<div class="top"></div>
+<div class="bottom"></div>
+
+
+
+
+
+    <script>
+
+//①匀速运动
+
+        // var oDiv = document.getElementsByTagName('div')[0];
+        // var timer = null;
+        // oBtn.onclick = function () {
+        //     startMove(oDiv);
+        // }
+        // function startMove(obj) {
+        //     clearInterval(timer);
+        //     var iSpeed;
+        //     if (obj.offsetLeft > 300) {
+        //         iSpeed = -8;
+        //     }else{
+        //         iSpeed = 8;
+        //     }
+        //     timer = setInterval(function () {
+        //         if(Math.abs(300 - obj.offsetLeft) < Math.abs(iSpeed)){
+        //             clearInterval(timer);
+        //             obj.style.left = '300px';
+        //         }else{
+        //             obj.style.left = obj.offsetLeft + iSpeed + 'px';
+        //         }
+        //     },30)
+        // }
+
+
+
+
+
+//②缓冲运动（正反都可以）
+
+        // var oDiv = document.getElementsByTagName('div')[0];
+        // var timer = null;
+        // oBtn.onclick = function () {
+        //     startMove(oDiv);
+        // }
+
+        // //299.14
+        // // 299 + 0.14 -> style 299.14
+        // // 299 + 0.14 -> style 299.14
+
+        // function startMove(obj) {
+        //     clearInterval(timer);
+        //     var iSpeed;
+
+        //     timer = setInterval(function () {
+        //         iSpeed = (300 - obj.offsetLeft) / 7;
+
+        //         iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
+        //         if(obj.offsetLeft === 300) {
+        //             clearInterval(timer);
+        //         }else {
+        //             obj.style.left = obj.offsetLeft + iSpeed +'px';
+        //         }
+        //     },30)
+        // }
+
+
+
+// ③弹出缩回运动
+        // var oDivWrapper = document.getElementsByTagName('div')[0];
+        // var timer = null;
+        // //冒泡事件
+        // oDivWrapper.onmouseenter = function () {
+        //     starMove(this, 0);
+        // }
+        // oDivWrapper.onmouseleave = function () {
+        //     startMove(this, -400);
+        // }
+        // //用一个形参来代替标点（所标的这个点_来回两个点）
+        // function startMove(obj,target) {
+        //     clearInterval(timer);
+        //     var iSpeed;
+
+        //     timer = setInterval(function () {
+        //         iSpeed = (target - obj.offsetLeft) / 7;
+
+        //         iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
+        //         if(obj.offsetLeft === target) {
+        //             clearInterval(timer);
+        //         }else {
+        //             obj.style.left = obj.offsetLeft + iSpeed +'px';
+        //         }
+        //     },30)
+        // }
+
+
+
+
+
+
+
+//④获取样式并且改变样式
+
+        //   ④-1  
+        //如何获取样式值 呢？↓
+        // var oDiv = document.getElementsByTagName('div')[0];
+         
+        // function getStyle (obj, attr) {
+        //     if(obj.currentStyle) {
+                        //当时的样式 currentStyle
+        //         return obj.currentStyle[attr];
+        //     }else {
+        //         return window.getComputedStyle(obj, false)[attr];
+        //     }
+        // }
+
+        // //如果想要一个数字，一个整数而不是字符串呢？用parseInt(),parseFloat()
+        // console.log(parseInt(getStyle(oDiv, 'width')), typeof getStyle(oDiv, 'width'));
+        // console.log(getStyle(oDiv, 'opacity'), typeof getStyle(oDiv, 'opacity'));
+
+
+
+        // var oDiv = document.getElementsByTagName('div')[0];
+        // oDiv.onclick = function () {
+        //     startMove(this, 50);//数值也扩大了一百倍
+        // }
+        // var timer = null;
+        // function getStyle (obj, attr) {
+        //     if(obj.currentStyle) {//当时的样式 currentStyle
+        //         return obj.currentStyle[attr];
+        //     }else {
+        //         return window.getComputedStyle(obj, false)[attr];
+        //     }
+        // }
+        // //要注意避免闪烁（倍数方法！）
+        // function startMove(obj, target) {
+        //     clearInterval(timer);
+        //     var iSpeed, iCur;
+        //     timer = setInterval(function () {
+        //         iCur = parseFloat(getStyle(obj, 'opacity'))*100;
+        //         iSpeed = (target - iCur) / 7;
+        //         iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
+        //         if(iCur == target) {
+        //             clearInterval(timer);
+        //         }else{
+        //             obj.style.opacity = (iCur + iSpeed) /100;
+        //         }
+        //     },30)
+        // }
+
+
+
+
+
+
+
+
+
+//⑤给所有的div都注册一个事件
+    // ⑤-1——所有div都作相同的运动，但是要是不同的定时器，不然快速就会卡顿，如何解决？
+        // var oDivArray = document.getElementsByTagName('div');
+        // var timer = null;
+        // for(var i = 0; i < oDivArray.length; i++){
+        //     oDivArray[i].onmouseenter = function () {
+        //         startMove(this, 400);
+        //     }
+        //     oDivArray[i].onmouseleave = function () {
+        //         startMove(this, 100);
+        //     }
+        // }
+        // function startMove(obj,target) {
+        //     clearInterval(obj.timer);
+        //     var iSpeed;
+
+        //     //清自己的定时器，不影响别人
+        //     obj.timer = setInterval(function () {
+        //         iSpeed = (target - obj.offsetWidth) / 7;
+
+        //         iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
+        //         if(obj.offsetWidth === target) {
+        //             clearInterval(obj.timer);
+        //         }else {
+        //             obj.style.width = obj.offsetWidth + iSpeed +'px';
+        //         }
+        //     },30)
+        // }
+
+
+ 
+    // ⑤-2利用这个函数 给每个定时器都赋予不同的功能
+
+        // var oDivArray = document.getElementsByTagName('div');
+        // var timer = null;
+
+        // oDivArray[0].onclick = function () {
+        //     startMove(this, 400, 'width');
+        // }
+        // oDivArray[1].onclick = function () {
+        //     startMove(this, 400, 'height');
+        // }
+        // oDivArray[2].onclick = function () {
+        //     startMove(this, 50, 'opacity');
+        // }
+        // oDivArray[3].onclick = function () {
+        //     startMove(this, 50, 'borderWidth');
+        // }
+
+        // function getStyle (obj, attr) {
+        //     if(obj.currentStyle) {
+        //         return obj.currentStyle[attr];
+        //     }else {
+        //         return window.getComputedStyle(obj, false)[attr];
+        //     }
+        // }
+        // //增加了一个attr(不同的功能)
+        // function startMove(obj, target, attr) {
+        //     clearInterval(obj.timer);
+        //     var iSpeed, iCur;
+ 
+        //     obj.timer = setInterval(function () {
+        //        if (attr == 'opacity') {
+        //             iCur = parseFloat(getStyle(obj, attr))*100;
+        //        }else{
+        //            iCur = parseInt(getStyle(obj, attr));
+        //        }
+        //        iSpeed = (target - iCur) / 7;
+        //        iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
+
+        //        if (iCur == target) {
+        //            clearInterval(timer);
+        //        }else{
+        //             if(attr == 'opacity') {
+        //                 obj.style.opacity = (iCur + iSpeed) / 100;
+        //             }else{
+        //                 obj.style[attr] = iCur + iSpeed + 'px';
+        //             }
+        //        }
+
+        //     },30)
+        // }
+        
+
+
+//⑥多物体多值链式运动框架：
+            //****************多物体多值链式运动框架***********************
+            //链式——是一种连锁的反应
+            var oDivArray = document.getElementsByTagName('div');
+            var timer = null;
+            //所有发生链式的变化
+            var targetObj = {
+                width: 400,
+                heigh: 400,
+                opacity: 50,
+                left: 300,
+                top: 200 
+            }
+            oDivArray[0].onclick = function () {
+                starMove(this, targetObj, function () {
+                    starMove(oDivArray[1], targetObj);
+                });
+            }
+            function getStyle (obj, attr) {
+                if(obj.currentStyle) {
+                    return obj.currentStyle[attr];
+                }else {
+                    return window.getComputedStyle(obj, false)[attr];
+                }
+            }
+
+            function starMove (obj, json, callback) {
+                clearInterval(obj, timer);
+                var iSpeed, iCur;
+                obj.timer = setInterval(function () {
+                    var bStop = true;
+                    for (var attr in json) {
+                        if (attr == 'opacity') {
+                            iCur = parseFloat( getStyle(obj, attr)) * 100;
+                        }else {
+                            iCur = parseInt(getStyle(obj, attr));
+                        }
+                        iSpeed = (json[attr] - iCur) / 7 ;
+                        iSpeed = iSpeed > 0 ? Math.ceil(iSpeed) : Math.floor(iSpeed);
+                        //条件也不一样了，不再是单一条件
+                        if (attr == 'opacity') { 
+                            obj.style.opacity = (iCur + iSpeed) / 100;
+                        }else {
+                            obj.style[attr] = iCur + iSpeed + 'px';
+                        }
+                        //如何让他停止的另一条件，做bSTOP（相当于flag)标记
+                        if(iCur != json[attr]) {
+                            bStop = false;
+                        }
+                    }
+                    if (bStop) {
+                        clearInterval(obj.timer);
+                        //要判断传入的是否是函数，不是的话就不做其他操作↓
+                        typeof callback == 'function' ? callback() : '';
+                    }
+                }, 30);
+
+            }
+
+
+
+
+
+
+
+
+    </script>
+
+</body>
+</html>

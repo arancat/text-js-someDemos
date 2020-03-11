@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>3.5轮播图</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+        .wrapper {
+            position: relative;
+            margin: 100px auto 0px;
+            width: 400px;
+            height: 250px;
+            border: 1px solid #000;
+            overflow: hidden;
+        }
+
+        .wrapper .sliderPage {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            height: 250px;
+            width: 2000px;
+        }
+        .wrapper .sliderPage li{
+            width: 400px;
+            height: 250px;
+            float: left;
+        }
+
+        .wrapper .sliderPage li img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .wrapper .btn {
+            position: absolute;
+            top: 50%;
+            margin-top: -20px;
+            width: 40px;
+            height: 40px;
+            color: #fff;
+            background-color: #000;
+            text-align: center;
+            line-height: 40px;
+            opacity: 0.1;
+            cursor: pointer;
+        }
+        .wrapper:hover .btn {
+            opacity: 1;
+        }
+        .wrapper .leftBtn {
+            left: 15px;
+        }
+        .wrapper .rightBtn {
+            right: 15px;
+        }
+        /* 定位点 */
+        .wrapper .sliderIndex {
+            position: absolute;
+            width: 100%;
+            bottom: 15px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .wrapper .sliderIndex span {
+            /* 行级元素也可以设置宽高了 */
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #ccc;
+            margin-right: 10px;
+        }
+        .wrapper .sliderIndex .active {
+            background-color: #f40;
+        }
+    </style>
+</head> 
+<body>
+    <div class="wrapper">
+        <ul class="sliderPage">
+            <li>
+                <img src='./1.jpg'/>
+            </li>
+            <li>
+                <img src='./2.jpg'/>
+            </li>
+            <li>
+                <img src='./3.jpg'/>
+            </li>
+            <li>
+                <img src='./4.jpg'/>
+            </li>
+            <li>
+                <img src='./1.jpg'/>
+            </li>
+        </ul>
+        <div class="btn leftBtn">&lt</div>
+        <div class="btn rightBtn">&gt</div>
+        <div class="sliderIndex">
+            <span class="active"></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
+
+
+    <script src="./move.js"></script>
+    <script>
+        var timer = null;
+        var sliderPage = document.getElementsByClassName('sliderPage')[0];
+        var moveWidth = sliderPage.children[0].offsetWidth;
+
+        //direction
+        //默认轮播方向/right按钮    undefined/'left->right' 
+        //点击left按钮 'right-> left'
+
+        function autoMove (direction) {
+            //
+            if (!direction || direction == 'left->right') {
+                startMove(sliderPage, {left:sliderPage.offsetLeft - moveWidth}, function() {
+                    
+                    
+                    
+                    
+                    //轮播图——36分钟
+
+
+
+
+
+
+
+                });
+            }
+        }
+
+        timer =setInterval(autoMove, 1500);
+
+
+
+    </script>
+</body>
+</html>

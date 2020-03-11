@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var personArr = [
+          {name:'王港', src:'./img/3.png', des:'颈椎不好',sex:'m'},
+          {name:'刘莹', src:'./img/5.png', des:'我是谁',sex:'f'},
+          {name:'王秀莹', src:'./img/4.png', des:'我很好看',sex:'f'},
+          {name:'刘金雷', src:'./img/1.png', des:'你没有见过陌生的脸',sex:'m'},
+          {name:'刘飞翔', src:'./img/2.png', des:'瓜皮刘',sex:'m'}
+        ];
+        //1.forEach 循环遍历 ele是循环遍历的每一个对象 或者item；index代表的是索引
+        //不会改变原数组
+
+        // personArr.forEach(function (ele, index, array) {
+        //     console.log(ele);//ele
+        //     console.log(index); 
+        //     console.log(array);//循环遍历的那一个数组本身，一般不用第三个参数
+        // });
+
+
+        //自己改写，在portotype上改写
+        // Array.prototype.myForEach = function(func) {
+        //     for(var i = 0; i < this.length; i++){
+        //         func(this[i], i) ;
+        //     }
+        // }
+
+        // personArr.myForEach(function (ele, index) {
+        //     console.log(index);//ele
+        // });
+
+
+        //问题：break打断可行吗？
+        // personArr.forEach(function (ele, index) {
+        //     if(i == 2) {
+        //         break;
+        //     }
+        //     console.log(index);//break是否合法？————不合法
+            //SyntaxError: unlabeled break must be inside loop or switch
+            //从改写的源码出发，遍历无法打断，如果要查找就不利用forEach  
+        // })
+
+
+
+        //2.filter筛选——有返回结果，是true的集合，
+        //注意形参的语义化(叫什么都无所谓，但是那个位置就是固定的功能)
+        //样式↓
+        // var newArr = personArr.filter(function(ele, index) {
+        //     return true;//false 1 ==true (隐式的类型转换)；转换完不是空就可以
+        // })
+        // console.log(newArr);
+   
+        // 筛选性别为女性的对象——可以添加条件
+        // var newArr = personArr.filter(function(item, index) {
+        //     if(item.sex =='f'){
+        //         return true;
+        //     }else{
+        //         return false;
+        //     }
+        // })
+        // console.log(newArr);
+
+        // var newArr = personArr.filter(function(ele, index) {
+        //     if(index%2 == 0){}//...else...
+        // })
+
+        //filter源码改写（func函数作为回调函数）
+        // Array.prototype.myFilter = function(func) {
+            //是有新的数组输出的，所以先定义一个新的数组↓
+        //     var arr = [];
+        //     for(var i = 0; i < this.length; i++){
+        //         if(func(this[i], i)) {
+        //             arr.push(this[i]);
+        //         }
+        //     }
+        //     return arr;
+        // }
+
+
+        // //3.map——要的是结果放入数组中——是同一地址,浅拷贝的过程
+        // //示例1
+        // var newArr =  personArr.map(function(ele, index) {
+        //     return 'aimee';
+        // })
+        // //示例2
+        // var newArr =  personArr.map(function(ele, index) {
+        //     if(ele.sex = 'f') {
+        //         //如果不加  return 就是默认return undefined（5个undefined）
+        //          ele.gF = true;
+        //          return ele;
+        //     }else {
+        //          ele.bF = true;
+        //          return ele;
+        //     }
+        // })
+        // console.log(newArr);
+        // //示例3
+        // var newArr = personArr.map(function(ele, index ) {
+        //     return ele;//改变newArr同样会改变 ARR，公用地址
+        // })
+        // //↓map的实现（浅拷贝的过程）
+        // Array.prototype.myMap = function(func){
+        //     var arr = [];
+        //     for(var i = 0; i < this.length; i++) {
+        //         arr.push(func(this[i], i));
+        //     }
+        //     return arr; 
+        // }
+
+        // //深拷贝
+        // function deepClone(target, option) {
+        //     if(option != null) {
+        //         for(var prop in option) {
+        //             var src = target[prop];
+        //             var copy = option[prop];
+        //             if(copy && typeof copy =='object') {
+        //                 if(Object.prototype.toString.call(copy) == '[object Array]') {
+        //                     src = [];
+        //                 }else {
+        //                     src = {};
+        //                 }
+        //                 target[prop] = deepClone(src, copy);
+        //             }else {
+        //                 target[prop] = copy;
+        //             }
+        //         }
+        //     }
+        //     return target;
+        // }
+
+        // var obj1 = {};
+        // var obj2 = {
+        //     name: 'aimee',
+        //     hobby:{
+        //         sing: 'good',
+        //         dance: 'well'
+        //     }
+        // }
+        // deepClone(obj1, obj2);
+        // obj2.name = 'cg';
+        // console.log(obj1);
+
+        // //map的深拷贝改写↓
+        // Array.prototype.myMap = function(func){
+        //     var arr = [];
+        //     for(var i = 0; i < this.length; i++) {
+        //         if(this[i] && typeof this[i] == 'object') {//深拷贝过程
+        //             var newObj = {};
+        //             deepClone(newObj, this[i]);
+        //             arr.push(func(newObj, i));
+        //         }else {
+        //             arr.push(func(this[i], i))
+        //         }
+        //     }
+        //     return arr; 
+        // }
+
+
+        //4.reduce方法——累加器——效率非常高，比for循环做累加器高出几十倍
+        // var arr = [1,2,3,4,5];
+        // arr.reduce(function(preValue, ele, index, array) {
+        //     console.log(preValue);
+        //     return ele;
+        // }, 10)//初始值有则第一位   初始无则第二位开始
+
+        //累加的实现
+        // var arr = [1,2,3,4,5];
+        // var value = arr.reduce(function(preValue, ele, index, array) {
+        //     return preValue + ele;
+        // });
+        // console.log(value);
+
+        // //reduce源码改写——累加器效率很高
+        // Array.prototype.myReduce = function (func, init) {
+        //     var previous = init, k = 0;
+
+        //     if(init === undefined) {
+        //         previous = this[0];
+        //         k = 1;
+        //     }
+        //     for(k; k < this.length; k++) {
+        //         previous = func(previous, this[k], k);
+        //     }
+        //     return previous;
+        // }
+
+
+        // //reduceRight_从右向左来实现reduce——源码如何倒序实现，将K的值变为--
+        // var arr = [1,2,3,4,5];
+
+        // var value = arr.reduceRight(function (preValue, ele, index) {
+        //     console.log(index);
+        //     return 'aimee';
+        // })
+    </script>
+</body>
+</html>
